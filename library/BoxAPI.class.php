@@ -18,7 +18,7 @@
 
 		public function __construct($client_id = '', $client_secret = '', $redirect_uri = '') {
 			if(empty($client_id) || empty($client_secret)) {
-				throw ('Invalid CLIENT_ID or CLIENT_SECRET or REDIRECT_URL. Please provide CLIENT_ID, CLIENT_SECRET and REDIRECT_URL when creating an instance of the class.');
+
 			} else {
 				$this->client_id 		= $client_id;
 				$this->client_secret	= $client_secret;
@@ -28,14 +28,7 @@
 		
 		/* First step for authentication [Gets the code] */
 		public function get_code() {
-			if(array_key_exists('refresh_token', $_REQUEST)) {
-				$this->refresh_token = $_REQUEST['refresh_token'];
-			} else {
-				// echo $url = $this->authorize_url . '?' . http_build_query(array('response_type' => 'code', 'client_id' => $this->client_id, 'redirect_uri' => $this->redirect_uri));
-				$url = $this->authorize_url . '?' . http_build_query(array('response_type' => 'code', 'client_id' => $this->client_id, 'redirect_uri' => $this->redirect_uri));
-				header('location: ' . $url);
-				exit();
-			}
+			return $this->authorize_url . '?' . http_build_query(array('response_type' => 'code', 'client_id' => $this->client_id, 'redirect_uri' => $this->redirect_uri));
 		}
 		
 		/* Second step for authentication [Gets the access_token and the refresh_token] */
